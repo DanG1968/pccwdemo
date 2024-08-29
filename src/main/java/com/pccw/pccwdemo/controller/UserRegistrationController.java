@@ -23,7 +23,7 @@ public class UserRegistrationController {
     public ResponseEntity<String> registerUser(@Validated @RequestBody UserDTO userDTO) {
         // Map UserDTO to User
         User user = new User();
-        user.setUsername(userDTO.getUserName());
+        user.setUserName(userDTO.getUserName());
         user.setEmail(userDTO.getEmailAddress());
         // Ideally, handle password securely
         user.setPassword(userDTO.getPassword());

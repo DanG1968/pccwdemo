@@ -19,6 +19,6 @@ public class UserRegistrationService {
         userRepository.save(user);
 
         // Send welcome email
-        emailService.sendWelcomeEmail(user.getEmail(), user.getUserName());
+        // emailService.sendWelcomeEmail(user.getEmail(), user.getUserName());
     }
 }
