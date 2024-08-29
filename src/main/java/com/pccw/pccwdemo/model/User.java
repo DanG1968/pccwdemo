@@ -32,11 +32,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password) {
-        super();
+    public User(Long id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public String getEmail() {
@@ -47,7 +47,7 @@ public class User {
         return this.id;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return this.username;
     }
 
@@ -63,16 +63,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User users = (User) o;
-        return enabled == users.enabled && Objects.equals(id, users.id) && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(email, users.email);
+        User user = (User) o;
+        return enabled == user.enabled && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, username, password, email, enabled);
     }
-
-
 }
-
-
