@@ -71,4 +71,13 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, userName, password, email, enabled);
     }
+
+    public void setEnabled(int i) {
+        this.enabled = i;
+
+    }
+
+    public User get() {
+        return this;
+    }
 }
