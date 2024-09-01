@@ -16,7 +16,7 @@ public class User {
 
     @Setter
     @Column(name = "U_NAME")
-    private String username;
+    private String userName;
 
     @Setter
     @Column(name = "U_PASSWORD")
@@ -32,11 +32,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password) {
-        super();
+    public User(Long id, String userName, String password, String email) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
+        this.email = email;
     }
 
     public String getEmail() {
@@ -47,8 +47,8 @@ public class User {
         return this.id;
     }
 
-    public String getUsername() {
-        return this.username;
+    public String getUserName() {
+        return this.userName;
     }
 
     public String getPassword() {
@@ -63,16 +63,21 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User users = (User) o;
-        return enabled == users.enabled && Objects.equals(id, users.id) && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(email, users.email);
+        User user = (User) o;
+        return enabled == user.enabled && Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, enabled);
+        return Objects.hash(id, userName, password, email, enabled);
     }
 
+    public void setEnabled(int i) {
+        this.enabled = i;
 
+    }
+
+    public User get() {
+        return this;
+    }
 }
-
-
