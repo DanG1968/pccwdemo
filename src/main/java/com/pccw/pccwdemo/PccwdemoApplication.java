@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "com.pccw.pccwdemo")
 @EnableJpaRepositories(basePackages = "com.pccw.pccwdemo.repository")
-//@ComponentScan(basePackages = "com.pccw.pccwdemo.controller")
 public class PccwdemoApplication {
 
     public static void main(String[] args) {
