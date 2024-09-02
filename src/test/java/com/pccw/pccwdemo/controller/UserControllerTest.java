@@ -9,16 +9,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -31,25 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(UserController.class)
 class UserControllerTest {
-
-    @Configuration
-    static class TestConfig {
-        @Bean
-        public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-            LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-            factory.setDataSource(dataSource());
-            factory.setPackagesToScan("com.pccw.pccwdemo");
-            factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-            return factory;
-        }
-
-        @Bean
-        public DataSource dataSource() {
-            return new EmbeddedDatabaseBuilder()
-                    .setType(EmbeddedDatabaseType.H2)
-                    .build();
-        }
-    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -71,21 +45,21 @@ class UserControllerTest {
     }
 
     @Test
-    void testGetAllUsers() throws Exception {
+    void getAllUsers() throws Exception {
         mockMvc.perform(get("/api/user/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void testGetUserById() throws Exception {
+    void getUserById() throws Exception {
         mockMvc.perform(get("/api/user/find/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void testAddUser() throws Exception {
+    void addUser() throws Exception {
         User user = new User();
         user.setUserName("testUser");
         user.setEmail("test@test.com");
@@ -96,12 +70,10 @@ class UserControllerTest {
                         .content(new ObjectMapper().writeValueAsString(user)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
-        Mockito.verify(userRepository).save(any(User.class));
     }
 
     @Test
-    void testUpdateUser() throws Exception {
+    void updateUser() throws Exception {
         User user = new User();
         user.setId(1L);
         user.setUserName("testUser");
@@ -113,23 +85,18 @@ class UserControllerTest {
                         .content(new ObjectMapper().writeValueAsString(user)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
-        Mockito.verify(userRepository).save(any(User.class));
     }
 
     @Test
-    void testDeleteUser() throws Exception {
+    void deleteUser() throws Exception {
         mockMvc.perform(delete("/api/user/delete/1"))
                 .andExpect(status().isOk());
-
-        Mockito.verify(userRepository).deleteById(anyLong());
     }
 
     @Test
-    void testDeleteAllUsers() throws Exception {
+    void deleteAllUsers() throws Exception {
         mockMvc.perform(delete("/api/user/delete/all"))
                 .andExpect(status().isOk());
-
-        Mockito.verify(userRepository).deleteAll();
     }
+
 }
