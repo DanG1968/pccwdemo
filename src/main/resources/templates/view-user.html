@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>View User</title>
+</head>
+<body>
+<h1>User Details</h1>
+<p>ID: <span th:text="${user.id}"></span></p>
+<p>Username: <span th:text="${user.userName}"></span></p>
+<p>Email: <span th:text="${user.email}"></span></p>
+<p>Password: <span th:text="${user.password}"></span></p>
+<a th:href="@{/user/all}">Back to Users List</a>
+</body>
+</html>

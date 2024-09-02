@@ -1,1 +1,23 @@
+version: '3.8'
+
 services:
+  app:
+    image: pccwdemo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "9092:9092"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:h2:mem:testdb"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.h2.Driver"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+    networks:
+      - app-network
+
+networks:
+  app-network:
